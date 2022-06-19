@@ -18,6 +18,8 @@ function App() {
 				>
 					Learn React
 				</a>
+
+				<button onClick={FirebaseService.SignIn}>Sign In</button>
 			</header>
 		</div>
 	);

@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getFirestore, connectFirestoreEmulator, doc, collection, query, where, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { getAuth, GithubAuthProvider, signInWithPopup, connectAuthEmulator } from "firebase/auth";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyCi74wfC4xwuoUY2OxOdYl-1SsmnitFyqs",
@@ -18,3 +18,36 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
+// Init emulators
+connectFirestoreEmulator(db, "localhost", 8080);
+connectAuthEmulator(auth, "http://localhost:9099");
+
+const provider = new GithubAuthProvider();
+
+export function SignIn() {
+	signInWithPopup(auth, provider)
+		.then((result) => {
+			const user = result.user;
+
+			VerifyUser(user)
+				.then(res => !res && CreateUser(user));
+				
+		}).catch((error) => {
+			//TODO Redirect to error page... or open error modal
+		});
+}
+
+//TODO Cloud function
+async function VerifyUser(user) {
+	const ref = doc(db, "users", user.uid);
+	const docSnap = await getDoc(ref);
+
+	return docSnap.data();
+}
+
+async function CreateUser(user) {
+	const ref = doc(db, "users", user.uid);
+	const userDoc = await setDoc(ref, {
+		
+	});
+}
