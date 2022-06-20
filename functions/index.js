@@ -15,7 +15,7 @@ exports.createUser = functions.auth.user().onCreate(() => {
     console.log("+1");
     const increment = admin.firestore.FieldValue.increment(1);
 
-    var ref = admin.firestore().collection("var").doc("stats");
+    var ref = admin.firestore().collection("_var").doc("stats");
     ref.update({
         usersCreated: increment,
         users: increment
@@ -28,7 +28,7 @@ exports.deleteUser = functions.auth.user().onDelete(() => {
     console.log("-1");
     const decrement = admin.firestore.FieldValue.increment(-1);
 
-    var ref = admin.firestore().collection("var").doc("stats");
+    var ref = admin.firestore().collection("_var").doc("stats");
     ref.update({ users: decrement });
 
     return null;
