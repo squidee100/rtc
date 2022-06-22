@@ -20,11 +20,11 @@ exports.createUser = functions.auth.user().onCreate(() => {
     // Update stats
     const increment = admin.firestore.FieldValue.increment(1);
 
-    var ref = admin.firestore().collection("_var").doc("stats");
-    ref.update({
+    var statsRef = admin.firestore().collection("_var").doc("stats");
+    statsRef.set({
         usersCreated: increment,
         users: increment
-    });
+    }, { merge: true });
 
     console.log("User created!");
     return null;
@@ -39,7 +39,7 @@ exports.deleteUser = functions.auth.user().onDelete(() => {
     const decrement = admin.firestore.FieldValue.increment(-1);
 
     var ref = admin.firestore().collection("_var").doc("stats");
-    ref.update({ users: decrement });
+    ref.set({ users: decrement }, { merge: true });
 
     console.log("User deleted!");
     return null;
