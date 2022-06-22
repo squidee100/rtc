@@ -10,12 +10,13 @@ exports.createUser = functions
     .region("australia-southeast1")
     .auth.user().onCreate((user) => {
         console.log("Creating user...");
+        const randomNumber = Math.floor(Math.random() * 1000000000);
 
         // Set user document
         const userRef = admin.firestore().collection("users").doc(user.uid);
         userRef.set({
             createdAt: new Date(user.metadata.creationTime),
-            displayName: user.displayName,
+            username: user.displayName || `user${randomNumber}`,
             email: user.email,
         });
 
