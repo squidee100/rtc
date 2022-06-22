@@ -27,10 +27,12 @@ exports.createUser = functions.auth.user().onCreate((user) => {
     return null;
 });
 
-exports.deleteUser = functions.auth.user().onDelete(() => {
+exports.deleteUser = functions.auth.user().onDelete((user) => {
     console.log("Deleting user...");
 
     // Remove database document
+    var userRef = admin.firestore().collection("users").doc(user.uid);
+    userRef.delete();
     
     // Update stats
     const decrement = admin.firestore.FieldValue.increment(-1);
