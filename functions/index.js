@@ -12,7 +12,12 @@ admin.initializeApp(functions.config().firebase);
 // });
 
 exports.createUser = functions.auth.user().onCreate(() => {
-    console.log("+1");
+    console.log("Creating user...");
+
+    // Set database document
+    
+    
+    // Update stats
     const increment = admin.firestore.FieldValue.increment(1);
 
     var ref = admin.firestore().collection("_var").doc("stats");
@@ -21,15 +26,21 @@ exports.createUser = functions.auth.user().onCreate(() => {
         users: increment
     });
 
+    console.log("User created!");
     return null;
 });
 
 exports.deleteUser = functions.auth.user().onDelete(() => {
-    console.log("-1");
+    console.log("Deleting user...");
+
+    // Remove database document
+    
+    // Update stats
     const decrement = admin.firestore.FieldValue.increment(-1);
 
     var ref = admin.firestore().collection("_var").doc("stats");
     ref.update({ users: decrement });
 
+    console.log("User deleted!");
     return null;
 });
