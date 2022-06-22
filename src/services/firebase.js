@@ -28,26 +28,7 @@ export function SignIn() {
 	signInWithPopup(auth, provider)
 		.then((result) => {
 			const user = result.user;
-
-			VerifyUser(user)
-				.then(res => !res && CreateUser(user));
-				
 		}).catch((error) => {
 			//TODO Redirect to error page... or open error modal
 		});
-}
-
-//TODO Cloud function
-async function VerifyUser(user) {
-	const ref = doc(db, "users", user.uid);
-	const docSnap = await getDoc(ref);
-
-	return docSnap.data();
-}
-
-async function CreateUser(user) {
-	const ref = doc(db, "users", user.uid);
-	const userDoc = await setDoc(ref, {
-		
-	});
 }

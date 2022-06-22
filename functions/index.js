@@ -11,11 +11,13 @@ admin.initializeApp(functions.config().firebase);
 //   response.send("Hello from Firebase!");
 // });
 
-exports.createUser = functions.auth.user().onCreate(() => {
+exports.createUser = functions.auth.user().onCreate((user) => {
     console.log("Creating user...");
 
     // Set database document
-    
+    var userRef = admin.firestore().collection("users").doc(user.uid);
+    userRef.set({
+    });
     
     // Update stats
     const increment = admin.firestore.FieldValue.increment(1);
