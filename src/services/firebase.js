@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getFirestore, connectFirestoreEmulator, doc, collection, query, where, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 import { getAuth, GithubAuthProvider, signInWithPopup, connectAuthEmulator } from "firebase/auth";
 
 const firebaseConfig = {
@@ -14,7 +13,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
@@ -27,7 +25,7 @@ const provider = new GithubAuthProvider();
 export function SignIn() {
 	signInWithPopup(auth, provider)
 		.then((result) => {
-			const user = result.user;
+			
 		}).catch((error) => {
 			//TODO Redirect to error page... or open error modal
 		});
