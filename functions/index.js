@@ -7,7 +7,7 @@ exports.createUser = functions.auth.user().onCreate((user) => {
     console.log("Creating user...");
 
     // Set database document
-    var userRef = admin.firestore().collection("users").doc(user.uid);
+    const userRef = admin.firestore().collection("users").doc(user.uid);
     userRef.set({
         createdAt: user.metadata.creationTime,
         displayName: user.providerData[0].screenName, 
@@ -17,7 +17,7 @@ exports.createUser = functions.auth.user().onCreate((user) => {
     // Update stats
     const increment = admin.firestore.FieldValue.increment(1);
 
-    var statsRef = admin.firestore().collection("_var").doc("stats");
+    const statsRef = admin.firestore().collection("_var").doc("stats");
     statsRef.set({
         usersCreated: increment,
         users: increment
@@ -31,13 +31,13 @@ exports.deleteUser = functions.auth.user().onDelete((user) => {
     console.log("Deleting user...");
 
     // Remove database document
-    var userRef = admin.firestore().collection("users").doc(user.uid);
+    const userRef = admin.firestore().collection("users").doc(user.uid);
     userRef.delete();
     
     // Update stats
     const decrement = admin.firestore.FieldValue.increment(-1);
 
-    var ref = admin.firestore().collection("_var").doc("stats");
+    const ref = admin.firestore().collection("_var").doc("stats");
     ref.set({ users: decrement }, { merge: true });
 
     console.log("User deleted!");
