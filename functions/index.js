@@ -17,6 +17,9 @@ exports.createUser = functions.auth.user().onCreate((user) => {
     // Set database document
     var userRef = admin.firestore().collection("users").doc(user.uid);
     userRef.set({
+        createdAt: user.metadata.creationTime,
+        displayName: user.providerData[0].screenName, 
+        email: user.email,
     });
     
     // Update stats
