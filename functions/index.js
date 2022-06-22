@@ -9,7 +9,7 @@ const decrement = admin.firestore.FieldValue.increment(-1);
 exports.createUser = functions.auth.user().onCreate((user) => {
     console.log("Creating user...");
 
-    // Set database document
+    // Set user document
     const userRef = admin.firestore().collection("users").doc(user.uid);
     userRef.set({
         createdAt: user.metadata.creationTime,
@@ -31,7 +31,7 @@ exports.createUser = functions.auth.user().onCreate((user) => {
 exports.deleteUser = functions.auth.user().onDelete((user) => {
     console.log("Deleting user...");
 
-    // Remove database document
+    // Remove user document
     const userRef = admin.firestore().collection("users").doc(user.uid);
     userRef.delete();
     
