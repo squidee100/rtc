@@ -3,6 +3,9 @@ const admin = require('firebase-admin');
 
 admin.initializeApp(functions.config().firebase);
 
+const increment = admin.firestore.FieldValue.increment(1);
+const decrement = admin.firestore.FieldValue.increment(-1);
+
 exports.createUser = functions.auth.user().onCreate((user) => {
     console.log("Creating user...");
 
@@ -15,8 +18,6 @@ exports.createUser = functions.auth.user().onCreate((user) => {
     });
     
     // Update stats
-    const increment = admin.firestore.FieldValue.increment(1);
-
     const statsRef = admin.firestore().collection("_var").doc("stats");
     statsRef.set({
         usersCreated: increment,
@@ -35,8 +36,6 @@ exports.deleteUser = functions.auth.user().onDelete((user) => {
     userRef.delete();
     
     // Update stats
-    const decrement = admin.firestore.FieldValue.increment(-1);
-
     const ref = admin.firestore().collection("_var").doc("stats");
     ref.set({ users: decrement }, { merge: true });
 
