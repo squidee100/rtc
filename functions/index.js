@@ -14,8 +14,8 @@ exports.createUser = functions
         // Set user document
         const userRef = admin.firestore().collection("users").doc(user.uid);
         userRef.set({
-            createdAt: user.metadata.creationTime,
-            displayName: user.providerData[0].screenName,
+            createdAt: new Date(user.metadata.creationTime),
+            displayName: user.displayName,
             email: user.email,
         });
 
