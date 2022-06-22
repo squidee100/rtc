@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
-import { getAuth, GithubAuthProvider, signInWithPopup, connectAuthEmulator } from "firebase/auth";
+import { getAuth, GithubAuthProvider, signInWithPopup } from "firebase/auth";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyCi74wfC4xwuoUY2OxOdYl-1SsmnitFyqs",
@@ -13,7 +12,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 const auth = getAuth(app);
 
 const provider = new GithubAuthProvider();
