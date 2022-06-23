@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import * as FirebaseService from "./services/firebase";
+import { useEffect, useState } from 'react';
 
 function App() {
 	return (
@@ -20,8 +21,22 @@ function App() {
 				</a>
 
 				<button onClick={FirebaseService.SignIn}>Sign In</button>
+				<UserList userList={FirebaseService.userList} />
 			</header>
 		</div>
+	);
+}
+
+function UserList({ userList }) {
+	const [users, setUsers] = useState([]);
+
+	useEffect(() => {
+		setUsers(userList);
+		console.log(userList);
+	}, [userList]);
+
+	return (
+		<span>{users.toString()}</span>
 	);
 }
 
