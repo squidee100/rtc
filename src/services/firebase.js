@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { collection, connectFirestoreEmulator, getFirestore, onSnapshot, query } from "firebase/firestore";
+import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 import { connectAuthEmulator, getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const firebaseConfig = {
@@ -13,7 +13,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 const auth = getAuth(app);
 
 connectFirestoreEmulator(db, "localhost", 8080);
@@ -29,12 +29,3 @@ export function SignIn() {
 			//TODO Redirect to error page... or open error modal
 		});
 }
-
-export let userList = [];
-export const userListener = onSnapshot(query(collection(db, "users")), (snapshot) => {
-	userList = [];
-	snapshot.forEach((doc) => {
-		console.log(doc.data());
-		userList.push(doc.data());
-	});
-});
