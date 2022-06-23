@@ -35,7 +35,14 @@ function UserCardList(props) {
 	return (
 		<div id="user-list">
 			<h2>Registered Users</h2>
-			{users.map(user => <UserCard user={user.data} key={user.id} />)}
+
+			{users.length
+				? users.map(user => <UserCard user={user.data} key={user.id} />)
+				: <div className="card">
+					<h3>No users!</h3>
+					<span>Create an account...</span>
+				</div>
+			}
 		</div>
 	);
 }
