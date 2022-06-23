@@ -62,7 +62,7 @@ function UserCard(props) {
 	return (
 		<div className="card">
 			<h3>{user.username}</h3>
-			<span>Account created <b>{time} ago</b>!</span>
+			<span>Created <b>{time} ago</b>!</span>
 		</div>
 	);
 }
