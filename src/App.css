@@ -16,7 +16,23 @@ a {
 	color: #61dafb;
 }
 
+button {
+	padding: 5px 10px;
+	font-weight: bold;
 }
 
+/* #endregion */
 
+.user-card {
+	width: 600px;
+
+	border: 2px solid #9b9b9b;
+	border-radius: 10px;
+
+	margin-bottom: 10px;
+	padding: 20px;
+}
+
+.user-card h3 {
+	margin: 0px;
 }
