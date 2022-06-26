@@ -21,7 +21,7 @@ const provider = new GoogleAuthProvider();
 export function SignIn() {
 	signInWithPopup(auth, provider)
 		.then((result) => {
-
+			window.location.reload();
 		}).catch((error) => {
 			//TODO Redirect to error page... or open error modal
 		});
